@@ -1,6 +1,10 @@
-1.Disparity Map: 写函数[D,R,T]=disparity_map，
+1.Disparity Map: [D,R,T]=disparity_map(scene_path)，
    输入参数是文件路径，功能打开所有源数据并计算Disparitaet D.
    返回值D 是[0,255]之间的unit8数据。此外返回旋转矩阵R 和位移向量T。
+   
+   https://github.com/mbaird/stereo-disparity-map 这个只画出来了视差图 
+   
+   https://blog.csdn.net/hitzijiyingcai/article/details/83178348 这几个算法基于opencv实现了
 
 2.Verification：p=verify_dmap(D,G)
     计算PSNR ，输入参数DisparityMap D 和 Ground Truth G，俩矩阵都标准化到[0,255]。
