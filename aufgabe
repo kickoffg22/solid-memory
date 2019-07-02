@@ -1,0 +1,24 @@
+1.Disparity Map: 写函数[D,R,T]=disparity_map，
+   输入参数是文件路径，功能打开所有源数据并计算Disparitaet D.
+   返回值D 是[0,255]之间的unit8数据。此外返回旋转矩阵R 和位移向量T。
+
+2.Verification：p=verify_dmap(D,G)
+    计算PSNR ，输入参数DisparityMap D 和 Ground Truth G，俩矩阵都标准化到[0,255]。
+    PSNR最后以dB单位给。
+    
+3.Unittests：补充test.m 检查以下几点
+  a)check_toolboxes:确定前几个没有用toolbox，都是写的基本函数
+  b)check_variables:challenge.m不是空的
+  c)check_psnr:对比自己写的PSNR和Toolbox的结果
+  
+4.Challenge: 补充challenge.m 注意变量调用。
+  在DisparityMap计算前开始计时器，紧接着和Ground Truth对比. 
+  计算结束后把timers的值存在elapsed_time里。在命令行里返回R，T，p，elapsedtime的值，并画D的图。
+  
+5.Plots 画Szenenordner的Disparity Map， 把图放pdf报告里
+
+6.GUI 图形界面 功能：选择Szenenordner，显示里面包含的图片，点击BUtton计算并显示DisparityMap。
+    此外在GUI上显示R，T，p的值。GUI由文件start_gui.m生成。
+  
+ZUSATZ：3D plot 根据相应的像素颜色 给空间点设置颜色。
+        Ausfuehrungszeit 评估代码性能，算一下平均时长。
