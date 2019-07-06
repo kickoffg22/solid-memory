@@ -1,7 +1,0 @@
-path = 'C:\Challenge\motorcycle';
-[I0,I1] = input_image(path);
-I0_grey = rgb_to_gray(I0);
-I1_grey = rgb_to_gray(I1);
-G = read('disp0GT.pfm');
-% imshow(I1_grey)
-% merkmale = harris_detektor(I0_grey, 'segment_length', 21, 'k', 0.06, 'do_plot', true);

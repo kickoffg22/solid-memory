@@ -1,16 +1,4 @@
-% Usage: [D1,D2] = stereoMatchWindowCensus(I1, I2, window_radius, disparity_range)
-%
-% Match Stereo Images using Census Cost and Standard Uniform Window Aggregation
-%
-% Takes as input an image <I1>, an image <I2>, the radius of the window
-% used for aggregation <window_radius>, and the range of disparities
-% <disparity_range> as a 1x2 vector. This function returns the
-% winner-take-all disparity maps going from <I1> to <I2> and vice versa.
-%
-% Author: Eric Psota
-% Date: June 26, 2014
-
-function [D1,D2] = stereoMatchWindowCensus(I1, I2, window_radius, disparity_range)
+function [D1,D2] = stereoMatchWindowCensus(I1, I2, window_radius, max_d)
 
 [~,cols,~] = size(I1);
 [rows,cols2,~] = size(I2);
@@ -21,79 +9,55 @@ elseif cols2 > cols
     I1(:,end+1:cols2,:) = 0;
 end
 
-IC1 = censusTransform9x7(I1);
-IC2 = censusTransform9x7(I2);
+IC1 = CT(I1,'window_length',7,'window_width',7);%Census tranformation
+IC2 = CT(I2,'window_length',7,'window_width',7);
 
-C1min = single(Inf*ones(rows,cols));
-C2min = single(Inf*ones(rows,cols));
-D1 = single(zeros(rows,cols));
-D2 = single(zeros(rows,cols));
-for d = disparity_range(1):disparity_range(2)
+C1min = Inf(rows,cols);
+C2min = Inf(rows,cols);
+D1 = zeros(rows,cols);
+D2 = zeros(rows,cols);
+for d = 1:max_d
     fprintf('Computing cost volume...(disparity = %04d)', d);
-    range1 = max(1,1+d):min(size(I1,2),size(I1,2)+d);
-    range2 = max(1,1-d):min(size(I1,2),size(I1,2)-d);
-    S = Inf(size(I1,1),length(range1));
-    Sbit = zeros(size(S,1) + 2*window_radius,size(S,2) + 2*window_radius);
-    Sbit(1+window_radius:end-window_radius,1+window_radius:end-window_radius) = bitxor(IC1(:,range1,:),IC2(:,range2,:));
-    Shamming = zeros(size(Sbit));
+    range1 = 1+d:cols;
+    range2 = 1:cols-d;
+    %S = Inf(rows,cols-d);
+    match_cost_bit_bin = zeros(rows + 2*window_radius,cols - d + 2*window_radius);
+    match_cost_bit_bin(1+window_radius:end-window_radius,1+window_radius:end-window_radius) = bitxor(IC1(:,range1),IC2(:,range2));
+    match_cost_bit = zeros(size(match_cost_bit_bin));    
     for k=1:64
-        Shamming = Shamming + double(bitget(Sbit,k));
+        match_cost_bit = match_cost_bit + double(bitget(match_cost_bit_bin,k));
     end
-    Sint = integralImage(Shamming);
-    Sagg = Sint(2*window_radius+2:end,2*window_radius+2:end)...
-        - Sint(1:end-(2*window_radius+1),2*window_radius+2:end)...
-        - Sint(2*window_radius+2:end,1:end-(2*window_radius+1))...
-        + Sint(1:end-(2*window_radius+1),1:end-(2*window_radius+1));
-    Sagg(:,1:window_radius) = Inf;
-    S = Sagg;
-    C1crop = C1min(:,range1);
-    C2crop = C2min(:,range2);
-    D1crop = D1(:,range1);
-    D2crop = D2(:,range2);
-    idx1 = single(S) < C1min(:,range1);
-    idx2 = single(S) < C2min(:,range2);
-    C1crop(idx1) = S(idx1);
-    C2crop(idx2) = S(idx2);
-    D1crop(idx1) = d;
-    D2crop(idx2) = d;
-    C1min(:,range1) = C1crop;
-    C2min(:,range2) = C2crop;
-    D1(:,range1) = D1crop;
-    D2(:,range2) = D2crop;
-    fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b');
+    % Calculate the match cost in the given window by means of intgeral
+    % image
+    intgerated_match_cost = zeros(size(match_cost_bit,1)+1,size(match_cost_bit,2)+1);
+    intgerated_match_cost(2:end, 2:end) = cumsum(cumsum(match_cost_bit,1),2);
+    windowed_match_cost = intgerated_match_cost(2*window_radius+2:end,2*window_radius+2:end)...
+        - intgerated_match_cost(1:end-(2*window_radius+1),2*window_radius+2:end)...
+        - intgerated_match_cost(2*window_radius+2:end,1:end-(2*window_radius+1))...
+        + intgerated_match_cost(1:end-(2*window_radius+1),1:end-(2*window_radius+1));
+    % The sum of cost in the window is the summation of value of bottom
+    % right point and upper left point substract the value of bottom left
+    % point and upper right point.
+    windowed_match_cost(:,1:window_radius) = Inf;
+    match_cost = windowed_match_cost;
+
+    C1c = C1min(:,range1);
+    C2c = C2min(:,range2);
+    D1c = D1(:,range1);
+    D2c = D2(:,range2);
+    index1 = match_cost < C1min(:,range1);
+    index2 = match_cost < C2min(:,range2);
+    C1c(index1) = match_cost(index1);
+    C2c(index2) = match_cost(index2);
+    D1c(index1) = d;
+    D2c(index2) = d;
+    C1min(:,range1) = C1c;
+    C2min(:,range2) = C2c;
+    D1(:,range1) = D1c;
+    D2(:,range2) = D2c;
+    fprintf('\n');
 end
 
 end
 
 
-
-
-
-function C = censusTransform9x7(I)
-
-[rows, cols, channels] = size(I);
-if channels == 3
-    I = rgb2gray(I);
-end
-
-C = uint64(zeros(rows,cols));
-pow = 63;
-Ishifted = zeros(size(I));
-for rs = -4:4
-    for cs = -3:3
-        Ishifted(:,:) = 0;
-        if rs <= 0 && cs <= 0
-            Ishifted(1:end+rs,1:end+cs) = I(1-rs:end,1-cs:end);
-        elseif rs <= 0 && cs >= 0
-            Ishifted(1:end+rs,1+cs:end) = I(1-rs:end,1:end-cs);
-        elseif rs >= 0 && cs <= 0
-            Ishifted(1+rs:end,1:end+cs) = I(1:end-rs,1-cs:end);
-        elseif rs >= 0 && cs >= 0
-            Ishifted(1+rs:end,1+cs:end) = I(1:end-rs,1:end-cs);
-        end
-        C(I < Ishifted) = bitset(C(I < Ishifted),pow);
-        pow = pow - 1;
-    end
-end
-
-end
