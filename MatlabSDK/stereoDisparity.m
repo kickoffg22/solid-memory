@@ -20,8 +20,7 @@
 % Load the stereo images.
 % left = imread('left.png');
 % right = imread('right.png');
-function DbasicSubpixel =  stereoDisparity(path)
-% path = 'C:\Challenge\motorcycle';
+path = 'C:\Challenge\motorcycle';
 [left,right] = input_image(path);
 %{
 % ===================================
@@ -176,39 +175,39 @@ for m = 1 : imgHeight
 end
 
 % Display compute time.
-% elapsed = toc();
-% fprintf('Calculating disparity map took %.2f min.\n', elapsed / 60.0);
+elapsed = toc();
+fprintf('Calculating disparity map took %.2f min.\n', elapsed / 60.0);
 
 % =========================================
 %        Visualize Disparity Map
 % =========================================
 
-% fprintf('Displaying disparity map...\n');
+fprintf('Displaying disparity map...\n');
 
 
 % Switch to figure 1.
-% figure(1);
+figure(1);
 
 % Clear the current figure window.
-% clf;
+clf;
 
 % Display the disparity map. 
 % Passing an empty matrix as the second argument tells imshow to take the
 % minimum and maximum values of the data and map the data range to the 
 % display colors.
-% image(DbasicSubpixel, []);
+image(DbasicSubpixel, []);
 
 
 % Configure the axes to properly display an image.
-% axis image;
+axis image;
 
 % Use the 'jet' color map.
 % You might also consider removing this line to view the disparity map in
 % grayscale.
-% colormap('jet');
+colormap('jet');
 
 % Display the color map legend.
-% colorbar;
+colorbar;
 
 % Specify the minimum and maximum values in the disparity map so that the 
 % values can be properly mapped into the full range of colors.
@@ -216,4 +215,4 @@ end
 %caxis([0 disparityRange]);
 
 % Set the title to display.
-% title(strcat('Basic block matching, Sub-px acc., Search right, Block size = ', num2str(blockSize)));
+title(strcat('Basic block matching, Sub-px acc., Search right, Block size = ', num2str(blockSize)));
