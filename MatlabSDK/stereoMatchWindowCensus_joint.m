@@ -1,4 +1,4 @@
-function [D1,D2,C1min,C2min] = stereoMatchWindowCensus_joint(I1, I2, window_radius, max_d,lambda_C,lambda_AD)
+function [D1,D2,C1min,C2min] = stereoMatchWindowCensus_joint(I1, I2, window_radius, ndisp)
 %Image allignment
 [~,cols,~] = size(I1);
 [rows,cols2,~] = size(I2);
@@ -16,10 +16,11 @@ C1min = Inf(rows,cols);
 C2min = Inf(rows,cols);
 D1 = zeros(rows,cols);
 D2 = zeros(rows,cols);
+max_d = min(ndisp,cols-max(window_radius(:)));
 for d = 1:max_d
     fprintf('Computing cost volume...(disparity = %04d)', d);
-    range1 = 1+d:cols;
-    range2 = 1:cols-d;
+    range1 = max(1,1+d):min(size(I1,2),size(I1,2)+d);
+    range2 = max(1,1-d):min(size(I1,2),size(I1,2)-d);
     %S = Inf(rows,cols-d);
     match_cost_bit_bin = zeros(rows + 2*window_radius,cols - d + 2*window_radius);
     match_cost_bit_AD = zeros(rows + 2*window_radius,cols - d + 2*window_radius);
@@ -44,7 +45,7 @@ for d = 1:max_d
         - intgerated_match_cost_AD(2*window_radius+2:end,1:end-(2*window_radius+1))...
         + intgerated_match_cost_AD(1:end-(2*window_radius+1),1:end-(2*window_radius+1));
 %     windowed_match_cost_C = windowed_match_cost_C(min(windowed_match_cost_C(:)));
-    total_windowed_match_cost = 2-exp(-windowed_match_cost_C/lambda_C)-exp(-windowed_match_cost_AD/lambda_AD);
+    total_windowed_match_cost = 2-exp(-2*windowed_match_cost_C/max(windowed_match_cost_C(:)))-exp(-2*windowed_match_cost_AD/max(windowed_match_cost_AD(:)));
     % The sum of cost in the window is the summation of value of bottom
     % right point and upper left point substract the value of bottom left
     % point and upper right point.

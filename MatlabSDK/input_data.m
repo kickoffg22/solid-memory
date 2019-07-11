@@ -9,9 +9,11 @@ fileID = fopen(F2,'r');
 C = textscan(fileID,'%*6s %s');
 C1 = C{1,1};
 ndisp = str2double(C1{17,1});
-ndisp = uint16(ndisp);
+% ndisp = uint16(ndisp);
 I0 = imread(F0);
 I1 = imread(F1);
-I = {I0/255,I1/255};
+I0 = double(I0)/255;
+I1 = double(I1)/255;
+I = {I0,I1};
 fclose(fileID);
 end

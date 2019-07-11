@@ -1,4 +1,4 @@
-function [D1,D2,C1min,C2min] = stereoMatchWindowCensus_joint_adp(I1, I2, window_radius, ndisp)
+function [D1,D2,C1min,C2min] = Census_WM_joint(I1, I2, window_radius, ndisp)
 %Image allignment
 [~,cols,~] = size(I1);
 [rows,cols2,~] = size(I2);

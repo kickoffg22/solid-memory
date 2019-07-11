@@ -1,14 +1,21 @@
-function [D,R,T] = disparity_map(scene_path)
+% function [D,R,T] = disparity_map(scene_path)
+scene_path = 'D:\test\Motorcycle';
     [I,ndisp] = input_data(scene_path);
-    I1 = rgb_to_gray(I{1});
-    I2 = rgb_to_gray(I{2});
+    imshow(I{1})
     window_radius = 6;
     tic();
-    [DisparityMap{1}, DisparityMap{2}] = stereoMatchWindowCensus_joint_adp(I2, I1, window_radius , ndisp);
+    [DisparityMap{1}, DisparityMap{2}] = Census_WM_joint(I{1}, I{2}, 6 , 140);
     [DisparityMap_sparse{1}, DisparityMap_sparse{2}] = Consis_check(DisparityMap{1}, DisparityMap{2});
+    imshow([DisparityMap{1}/ndisp,DisparityMap_sparse{1}/ndisp]);
+    colormap(gca,jet);
+    Refined_DisparityMap = refinement(DisparityMap_sparse{1});
+%     for i =1:2
+%         dmf = major_vote(dmf,2);   
+%     end
     
-    for i =1:2
-        dmf = major_vote(dmf,2);   
-    end
+    D = DisparityMap{1};
+    R = 1;
+    T = 1;
+    
     toc();
-end
+% end

@@ -10,7 +10,7 @@
 
 function C = CT(I,varargin)
 p = inputParser;
-default_window_length  = 9;
+default_window_length  = 7;
 validationFcn_window_length = @(x) isnumeric(x) && isscalar(x) &&(mod(x,2)==1) && (x > 1);
 p.addParameter('window_length',default_window_length,validationFcn_window_length);
 
