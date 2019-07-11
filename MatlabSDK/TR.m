@@ -1,10 +1,10 @@
-function [T1, R1, T2, R2, U, V]=TR_aus_E(E)
+function [T1, R1, T2, R2, U, V]=TR_aus_E()
     % Diese Funktion berechnet die moeglichen Werte fuer T und R
     % aus der Essentiellen Matrix
     %% Bilder laden
-    Image1 = imread('szeneL.png');
+    Image1 = imread('im0.png');
     IGray1 = rgb_to_gray(Image1);
-    Image2 =imread('szeneR.png');
+    Image2 =imread('im1.png');
     IGray2 = rgb_to_gray(Image2);
 
     %% Harris-Merkmale berechnen
