@@ -1,7 +1,7 @@
 % function [D,R,T] = disparity_map(scene_path)
-scene_path = 'D:\test\terrace';
+scene_path = 'D:\test\sword';
 [I,ndisp] = input_data(scene_path);
-GT = readpfm('D:\test\terrace\disp0.pfm');%Modify
+GT = readpfm('D:\test\sword\disp0.pfm');%Modify
 %     window_radius = round(size(I{1}/250));
 ndisp = 18;
 %    window_radius = 12;
