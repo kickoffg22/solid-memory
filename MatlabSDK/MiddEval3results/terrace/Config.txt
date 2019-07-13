@@ -1,6 +1,7 @@
-window_radius = 2£º23£»
-
+adaptive window;
+window_radius = 2:23;
 punish coifficient: 25
+gama:2;
 Refine:
 Majority vote:2*r3
 
