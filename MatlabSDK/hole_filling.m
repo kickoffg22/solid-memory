@@ -3,7 +3,7 @@ ind = D1==0;%Find holes in the given disparity map
 D_fill = D1;
 shifteded_D1 = zeros(size(ind));
 max_cross = zeros(size(ind));
-min_cross = zeros(size(ind));
+min_cross = Inf(size(ind));
 for i = -cross_radius:cross_radius %Shift the image in vertical direction
          shifteded_D1(:,:) = 0;
         if i <= 0 

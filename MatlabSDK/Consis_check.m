@@ -1,6 +1,6 @@
 %% Consistency check
 function [spr_D1,spr_D2] = Consis_check(D1, D2,varargin)
-fprintf('Performing ');
+fprintf('Performing Consistency check');
 p = inputParser;
 default_threshold  = 1;
 validationFcn_threshold = @(x) isnumeric(x) && isscalar(x) && (x > 0);
