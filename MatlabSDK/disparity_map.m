@@ -1,15 +1,15 @@
 % function [D,R,T] = disparity_map(scene_path)
-scene_path = 'D:\test\Motorcycle';
-    [I,ndisp] = input_data(scene_path);
-    GT = readpfm('D:\test\Motorcycle\disp0GT.pfm');%Modify
+scene_path = 'D:\test\terrace';
+[I,ndisp] = input_data(scene_path);
+GT = readpfm('D:\test\terrace\disp0.pfm');%Modify
 %     window_radius = round(size(I{1}/250));
-% ndisp = 18;
-   window_radius = 12;
-%     ws = 2:20;
+ndisp = 18;
+%    window_radius = 12;
+    ws = 2:20;
 % %     tic();
-%    [DisparityMap{1}, DisparityMap{2}] = stereoMatchWindowCensus_adpa(I{1}, I{2}, ws,ndisp,15,2);
+   [DisparityMap{1}, DisparityMap{2}] = stereoMatchWindowCensus_adpa(I{1}, I{2}, ws,ndisp,15,2);
 tic
-    [DisparityMap{1}, DisparityMap{2}] = Census_WM_joint(I{1}, I{2} , window_radius,ndisp);
+%     [DisparityMap{1}, DisparityMap{2}] = Census_WM_joint(I{1}, I{2} , window_radius,ndisp);
     [DisparityMap_sparse{1}, DisparityMap_sparse{2}] = Consis_check(DisparityMap{1}, DisparityMap{2});
 %      imshow([DisparityMap{1}/20,DisparityMap_sparse{1}/20]);
 %     colormap(gca,jet);
@@ -28,9 +28,9 @@ tic
 imshow([DisparityMap{1}/ndisp,DisparityMap_sparse{1}/ndisp;Refined_DisparityMap/ndisp,GT/ndisp]);
     colormap(gca,jet);
     toc();
-    D_full_u = uint8(Refined_DisparityMap*255/max(GT(:)));
-    GT_u = uint8(GT*255/max(GT(:)));
-    p = psnr(D_full_u,GT_u)
+    D_full_u = uint8(Refined_DisparityMap);
+    GT_u = uint8(GT);
+    p = psnr(D_full_u,GT_u,max(GT(:)))
 %  mask = imread(['MiddEval3/training',imgsize,'/',image_names{4},'/mask0nocc.png']);%Modify
 %         mask = mask == 255;
 %         Refined_DisparityMap(~mask)=0;
