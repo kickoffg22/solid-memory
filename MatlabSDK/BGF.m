@@ -4,7 +4,7 @@ D_full = D1;
 for k = 1:size(D1,1)
 %     T = min(D1(k,(find(D1(k,:) > 0))));
     T = D1(k,(D1(k,:) > 0));
-    T = mean(T(1:10));
+    T = mode(T(1:40));
     if ~isempty(T)
         BG(k) = T;
     end

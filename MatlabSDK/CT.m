@@ -9,6 +9,7 @@
 % the point into a binary string by comparing the conter point with the pixel in the window.
 
 function C = CT(I,varargin)
+fprintf('Performing Census Tranform \n');
 p = inputParser;
 default_window_length  = 7;
 validationFcn_window_length = @(x) isnumeric(x) && isscalar(x) &&(mod(x,2)==1) && (x > 1);

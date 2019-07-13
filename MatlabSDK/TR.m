@@ -1,4 +1,4 @@
-function [T1, R1, T2, R2, U, V]=TR_aus_E()
+function [T1, R1, T2, R2, U, V]=TR()
     % Diese Funktion berechnet die moeglichen Werte fuer T und R
     % aus der Essentiellen Matrix
     %% Bilder laden
@@ -11,7 +11,7 @@ function [T1, R1, T2, R2, U, V]=TR_aus_E()
     Merkmale1 = harris_detektor(IGray1,'segment_length',9,'k',0.05,'min_dist',40,'N',50,'do_plot',false);
     Merkmale2 = harris_detektor(IGray2,'segment_length',9,'k',0.05,'min_dist',40,'N',50,'do_plot',false);
 
-    %% Korrespondenzschätzung
+    %% Korrespondenzschaetzung
     Korrespondenzen = punkt_korrespondenzen(IGray1,IGray2,Merkmale1,Merkmale2,'window_length',25,'min_corr',0.9,'do_plot',false);
 
     %% Berechne die Essentielle Matrix

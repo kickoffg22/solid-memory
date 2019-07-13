@@ -11,14 +11,23 @@ end
 %Census Transform
 IC1 = CT(I1,'window_length',7,'window_width',7);%Census tranformation
 IC2 = CT(I2,'window_length',7,'window_width',7);
-
+% IC1 = Adp_CT(I1);%Census tranformation
+% IC2 = Adp_CT(I2);
 C1min = Inf(rows,cols);
 C2min = Inf(rows,cols);
 D1 = zeros(rows,cols);
 D2 = zeros(rows,cols);
 max_d = min(ndisp,cols-max(window_radius(:)));
+n=0;
 for d = 1:max_d
-    fprintf('Computing cost volume...(disparity = %04d)', d);
+%     n=round(max_d/10*d)-n;
+    if n==20
+    fprintf('%04d % completed', round(d/max_d*100));
+    fprintf('\n');
+    n=0;
+    else
+        n = n+1;
+    end
     range1 = max(1,1+d):min(size(I1,2),size(I1,2)+d);
     range2 = max(1,1-d):min(size(I1,2),size(I1,2)-d);
     %S = Inf(rows,cols-d);
@@ -66,7 +75,7 @@ for d = 1:max_d
     C2min(:,range2) = C2c;
     D1(:,range1) = D1c;
     D2(:,range2) = D2c;
-    fprintf('\n');
+    
 end
 end
 

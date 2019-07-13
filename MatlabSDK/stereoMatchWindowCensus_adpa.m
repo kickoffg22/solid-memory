@@ -31,7 +31,6 @@ for d = 1:max_d
     % image
     intgerated_match_cost = zeros(size(match_cost_bit,1)+1,size(match_cost_bit,2)+1);
     intgerated_match_cost(2:end, 2:end) = cumsum(cumsum(match_cost_bit,1),2);
-match_cost = zeros(size(I1));
 
 windowed_match_cost_C = zeros(size(match_cost_bit,1),size(match_cost_bit,2),length(ws));
     % The sum of cost in the window is the summation of value of bottom

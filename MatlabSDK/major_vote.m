@@ -1,10 +1,6 @@
 function I_vote = major_vote(I,r)
-tic()
 I_exp = zeros(size(I,1)+r,size(I,2)+r);
 [rows,cols] = size(I_exp);
-range1 = 1+r:rows;
-range2 = r+1:cols;
-I_exp(range1,range2) = I;
 stack = zeros(size(I,1),size(I,2),(2*r+1)^2);
 counter=1;
 shifteded_I = zeros(size(I));
@@ -26,5 +22,4 @@ for i = -r:r
 end
 % I_sort = sort(I_exp,3);
 I_vote = mode(stack(:,:,:),3);
-toc();
 end
