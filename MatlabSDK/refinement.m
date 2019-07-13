@@ -9,14 +9,14 @@ tic
 [rows,cols] = size(DM);
 R_DM = DM;
 for i =1:2
-R_DM = major_vote(DM,6);
+R_DM = major_vote(DM,5);
 end
 
 for i = 1:3
 R_DM = hole_filling(R_DM,4);
 end
 for i =1:2
-    R_DM = major_vote(R_DM,6);
+    R_DM = major_vote(R_DM,5);
 end
 if F_BG ==1
 R_DM = BGF(R_DM);

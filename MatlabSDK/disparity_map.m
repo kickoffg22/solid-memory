@@ -8,12 +8,13 @@ scene_path = 'D:\test\Motorcycle';
 %     ws = 2:20;
 % %     tic();
 %    [DisparityMap{1}, DisparityMap{2}] = stereoMatchWindowCensus_adpa(I{1}, I{2}, ws,ndisp,15,2);
+tic
     [DisparityMap{1}, DisparityMap{2}] = Census_WM_joint(I{1}, I{2} , window_radius,ndisp);
     [DisparityMap_sparse{1}, DisparityMap_sparse{2}] = Consis_check(DisparityMap{1}, DisparityMap{2});
 %      imshow([DisparityMap{1}/20,DisparityMap_sparse{1}/20]);
 %     colormap(gca,jet);
     Refined_DisparityMap = DisparityMap{1};
-    
+    toc()
 %     Refined_DisparityMap = BGF(DisparityMap_sparse{1});
     Refined_DisparityMap = refinement(DisparityMap_sparse{1},1);
 %     D = Refined_DisparityMap;
