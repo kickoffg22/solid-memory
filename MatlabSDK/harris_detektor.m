@@ -198,3 +198,4 @@ switch nargin
               error(message('images:fspecial:tooManyArgsForThisFilter'))
       end
 end
+end
