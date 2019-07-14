@@ -2,7 +2,7 @@ function [ndisp,algorithm,window_radius,beta,gamma,pri_MV,pri_MV_r,pos_MV,pos_MV
 fprintf('Performing Census Tranform \n');
 p = inputParser;
 default_ndisp  = 370;
-validationFcn_ndisp = @(x) isnumeric(x) && isscalar(x) && x>0 &&isinteger(x);
+validationFcn_ndisp = @(x) isnumeric(x) && isscalar(x) &&isinteger(x);
 p.addParameter('ndisp',default_ndisp,validationFcn_ndisp);
 
 default_algorithm  = 0;
@@ -12,6 +12,14 @@ p.addParameter('algorithm',default_algorithm,validationFcn_algorithm);
 default_window_radius  = 6;
 validationFcn_window_radius = @(x) isnumeric(x)&& x>0 &&isinteger(x);
 p.addParameter('window_radius',default_window_radius,validationFcn_window_radius); 
+
+default_min_window_radius  = 2;
+validationFcn_window_radius = @(x) isnumeric(x)&& x>0 &&isinteger(x);
+p.addParameter('min_window_radius',default_min_window_radius,validationFcn_window_radius); 
+
+default_max_window_radius  = 20;
+validationFcn_window_radius = @(x) isnumeric(x)&& x>0 &&isinteger(x);
+p.addParameter('max_window_radius',default_max_window_radius,validationFcn_window_radius); 
 
 default_gamma  = 2;
 validationFcn_gamma = @(x) isnumeric(x) && isscalar(x);
