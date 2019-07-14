@@ -151,6 +151,7 @@ switch type
        h  = h/sumh;
      end;
 end
+end
 %%% ParseInputs
 function [type, p2, p3] = ParseInputs(varargin)
 
