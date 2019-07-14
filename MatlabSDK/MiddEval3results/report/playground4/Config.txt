@@ -1,0 +1,12 @@
+Census_WM_joint
+£»
+window_radius = 2£º35£»
+30£¬ 2£»
+Refine:
+Majority vote:2*r3£»
+
+Hole_filling:3*r4
+£»
+Majority vote:2*r3
+PSNR unmask£º11.01
+PSNR mask£º25.92
