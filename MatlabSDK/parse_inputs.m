@@ -1,4 +1,4 @@
-function [ndisp,algorithm,window_radius,min_window_radius,max_window_radius,beta,gamma,pri_MV,pri_MV_r,pos_MV,pos_MV_r,HF,HF_r,BGF] = parse_inputs(varargin)
+function [ndisp,algorithm,window_radius,min_window_radius,max_window_radius,beta,gamma,pri_MV,pri_MV_r,pos_MV,pos_MV_r,HF,HF_r,BGF,calib] = parse_inputs(varargin)
 fprintf('Performing Census Tranform \n');
 p = inputParser;
 default_ndisp  = 370;
@@ -58,6 +58,10 @@ validationFcn_BGF = @(x) islogic(x);
 p.addParameter('BGF',default_BGF,validationFcn_BGF); 
 parse(p,varargin{:});
 
+default_calib  = 2;
+validationFcn_calib = @(x) isnumeric(x) && isscalar(x) &&isinteger(x);
+p.addParameter('calib',default_calib,validationFcn_calib);
+
 ndisp = p.Results.ndisp;%Maximum disparity range
 algorithm = p.Results.algorithm;%Algorithm chosen,0 indicates fixed window match with joint cost function,1 indicates 
 window_radius = p.Results.window_radius;
@@ -72,6 +76,7 @@ pos_MV_r = p.Results.pos_MV_r;
 HF_r = p.Results.HF_r;
 HF = p.Results.HF;
 BGF = p.Results.BGF;
+calib = p.Results.calib;
 if isvector(window_radius)&&algorithm==1
 error('The input of fixed window radius must be a scalar.')
 end

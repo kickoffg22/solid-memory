@@ -26,9 +26,8 @@ IC2 = CT(I2,'window_length',7,'window_width',7);
 toc
 %% Window matching along the epipolarline
 for d = 1:max_d
-%     n=round(max_d/10*d)-n;
-    if n==20
-    fprintf('%04d % completed', round(d/max_d*100));
+    if n==round(d/max_d*100)
+    fprintf('%04d percent completed', round(d/max_d*100));
     fprintf('\n');
     n=0;
     else
