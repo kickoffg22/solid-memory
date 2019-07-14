@@ -1,6 +1,6 @@
 function [D,R,T] = disparity_map(scene_path,varargin)
 [I,ndisp_calib] = input_data(scene_path);
-[ndisp_input,algorithm,window_radius,beta,gamma,pri_MV,pri_MV_r,pos_MV,HF,HF_r,BGF] = parse_inputs(varargin);
+[ndisp,algorithm,window_radius,beta,gamma,pri_MV,pri_MV_r,pos_MV,pos_MV_r,HF,HF_r,BGF] = parse_inputs(varargin);
 ndisp = min(ndisp_input,ndisp_calib);
 tic();
 if algorithm ==0
@@ -11,8 +11,7 @@ end
 toc();
 tic();
     [DisparityMap_sparse{1}, DisparityMap_sparse{2}] = Consis_check(DisparityMap{1}, DisparityMap{2});
-
-    Refined_DisparityMap = refinement(DisparityMap_sparse{1},pri_MV,pri_MV_r,pos_MV,HF,HF_r,BGF);
+    Refined_DisparityMap = refinement(DisparityMap_sparse{1},pri_MV,pri_MV_r,pos_MV,pos_MV_r,HF,HF_r,BGF);
 toc();
     colormap(gca,jet);
     toc();
