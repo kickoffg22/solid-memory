@@ -1,3 +1,4 @@
+%Read im0.png and im1.png from the specified path and read the given ndisp from calib.txt
 function [I,ndisp] = input_data(scene_path)
 S0 = dir(fullfile(scene_path,'im0.png')); % pattern to match filenames.
 S1 = dir(fullfile(scene_path,'im1.png'));

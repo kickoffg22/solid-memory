@@ -1,4 +1,4 @@
-function [ndisp,algorithm,window_radius,beta,gamma,pri_MV,pri_MV_r,pos_MV,pos_MV_r,HF,HF_r,BGF] = parse_inputs(varargin)
+function [ndisp,algorithm,window_radius,min_window_radius,max_window_radius,beta,gamma,pri_MV,pri_MV_r,pos_MV,pos_MV_r,HF,HF_r,BGF] = parse_inputs(varargin)
 fprintf('Performing Census Tranform \n');
 p = inputParser;
 default_ndisp  = 370;
@@ -61,6 +61,8 @@ parse(p,varargin{:});
 ndisp = p.Results.ndisp;%Maximum disparity range
 algorithm = p.Results.algorithm;%Algorithm chosen,0 indicates fixed window match with joint cost function,1 indicates 
 window_radius = p.Results.window_radius;
+min_window_radius = p.Results.min_window_radius;
+max_window_radius = p.Results.max_window_radius;
 gamma = p.Results.gamma;
 beta = p.Results.beta;
 pri_MV = p.Results.pri_MV;
