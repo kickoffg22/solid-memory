@@ -1,8 +1,0 @@
-Census_WM_joint
-window_radius = 15
-Refine:
-Majority vote:2*r3
-Hole_filling:3*r4
-Majority vote:2*r3
-PSNR:15.6
-time:1487s+69*2

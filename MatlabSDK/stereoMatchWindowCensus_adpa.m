@@ -21,8 +21,10 @@ D2 = zeros(rows,cols);
 max_d = min(ndisp,cols-max(max_window_radius(:)));
 n = 0;
 %% Census Transform
+tic
 IC1 = CT(I1);
 IC2 = CT(I2);
+toc
 %% Window matching along the epipolarline
 for d = 1:max_d
     if n==round(max_d/10)
