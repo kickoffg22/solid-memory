@@ -64,7 +64,7 @@ for d = 1:max_d
         + intgerated_match_cost_AD(1:end-(2*window_radius+1),1:end-(2*window_radius+1));
  % The final joint matching cost combines the color SAD and Hamming
  % distance
-    total_windowed_match_cost = 2-exp(-2*windowed_match_cost_C/max(windowed_match_cost_C(:)))-exp(-1.5*windowed_match_cost_AD/max(windowed_match_cost_AD(:)));
+    total_windowed_match_cost = 2-exp(-2*windowed_match_cost_C/max(windowed_match_cost_C(:)))-exp(-2*windowed_match_cost_AD/max(windowed_match_cost_AD(:)));
     total_windowed_match_cost(:,1:window_radius) = Inf;%Set the matching cost of invalid points to infinity
     match_cost = total_windowed_match_cost;
  %% Comparing and recording the minimum cost and correspongding disparity.

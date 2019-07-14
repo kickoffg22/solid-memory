@@ -1,10 +1,10 @@
 % function [D,R,T] = disparity_map(scene_path)
-scene_path = 'D:\test\swordp';
+scene_path = 'D:\test\H\Motorcycle';
 [I,ndisp] = input_data(scene_path);
-GT = readpfm('D:\test\sword2\disp0.pfm');%Modify
+GT = readpfm('D:\test\H\Motorcycle\disp0.pfm');%Modify
 %     window_radius = round(size(I{1}/250));
-ndisp = 90;
-   window_radius = 9;
+% ndisp = 90;
+   window_radius = 12;
 %     ws = 1:10;
 % %     tic();
 tic
@@ -32,9 +32,9 @@ figure()
 imshow([DisparityMap{1}/ndisp,DisparityMap_sparse{1}/ndisp;Refined_DisparityMap_unmask/ndisp,Refined_DisparityMap/ndisp]);
     colormap(gca,jet);
     toc();
-%     D_full_u = uint8(Refined_DisparityMap*255/370);
-%     GT_u = uint8(GT);
-%     p = psnr(D_full_u,GT_u)
+    D_full_u = uint8(Refined_DisparityMap);
+    GT_u = uint8(GT);
+    p = psnr(D_full_u,GT_u,140)
 % p = psnr(D_full_u,GT_)
 %  mask = imread(['MiddEval3/training',imgsize,'/',image_names{4},'/mask0nocc.png']);%Modify
 %         mask = mask == 255;
