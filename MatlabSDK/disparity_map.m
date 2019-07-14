@@ -1,10 +1,10 @@
 % function [D,R,T] = disparity_map(scene_path)
-scene_path = 'D:\test\H\Motorcycle';
+scene_path = 'D:\test\sword';
 [I,ndisp] = input_data(scene_path);
-GT = readpfm('D:\test\H\Motorcycle\disp0.pfm');%Modify
+GT = readpfm('D:\test\sword\disp0.pfm');%Modify
 %     window_radius = round(size(I{1}/250));
 % ndisp = 90;
-   window_radius = 12;
+   window_radius = 10;
 %     ws = 1:10;
 % %     tic();
 tic

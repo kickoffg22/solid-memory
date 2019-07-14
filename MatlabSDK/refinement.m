@@ -9,11 +9,11 @@ tic
 [rows,cols] = size(DM);
 R_DM = DM;
 for i =1:2 %Times of interation 
-R_DM = major_vote(DM,3);%Radius of hole majority vote window
+R_DM = major_vote(DM,4);%Radius of hole majority vote window
 end
 
 for i = 1:3%Times of hole filling 
-R_DM = hole_filling_m(R_DM,1,2);%Radius of hole filling window
+R_DM = hole_filling_m(R_DM,1,5);%Radius of hole filling window
 end
 for i =1:2
     R_DM = major_vote(R_DM,3);
