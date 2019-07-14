@@ -1,19 +1,35 @@
 function [D,R,T] = disparity_map(scene_path,varargin)
 [I,ndisp_calib] = input_data(scene_path);
-[ndisp_input,algorithm,window_radius,beta,gamma,pri_MV,pri_MV_r,pos_MV,HF,HF_r] = parse_inputs(varargin)
-ndisp = min(ndisp_input,ndisp_calib);
+[ndisp,algorithm,window_radius,beta,gamma,pri_MV,pri_MV_r,pos_MV,HF,HF_r] = parse_inputs(varargin)
+GT = readpfm('D:\test\Motorcycle\disp0.pfm');%Modify
 tic();
 if algorithm ==0
-    [DisparityMap{1}, DisparityMap{2}] = stereoMatchWindowCensus_adpa(I{1}, I{2}, window_radius,ndisp,beta,gamma);
+    [DisparityMap{1}, DisparityMap{2}] = stereoMatchWindowCensus_adpa(I{1}, I{2}, window_radius,ndisp,beta,gamma)
 else
     [DisparityMap{1}, DisparityMap{2}] = Census_WM_joint(I{1}, I{2} , window_radius,ndisp);
 end
 toc();
-tic();
+tic
     [DisparityMap_sparse{1}, DisparityMap_sparse{2}] = Consis_check(DisparityMap{1}, DisparityMap{2});
+%      imshow([DisparityMap{1}/20,DisparityMap_sparse{1}/20]);
+%     colormap(gca,jet);
+%     Refined_DisparityMap = DisparityMap{1};
+%     toc()
+%     Refined_DisparityMap = BGF(DisparityMap_sparse{1});
+% Refined_DisparityMap_unmask(Refined_DisparityMap_unmask>75) = 0;
+
     Refined_DisparityMap_unmask = refinement(DisparityMap_sparse{1},0);
     toc
     Refined_DisparityMap = refinement(DisparityMap_sparse{1},1);
+%     D = Refined_DisparityMap;
+    R = 1;
+    T = 1;
+%     figure()
+%     imshow([Refined_DisparityMap/20,GT/20]);
+%    Refined_DisparityMap = Refined_DisparityMap_unmask;
+%     Refined_DisparityMap(GT==0) = 0;
+%     imshow([DisparityMap{1}/ndisp,DisparityMap_sparse{1}/ndisp;Refined_DisparityMap/ndisp,GT/ndisp]);
+figure()
 
 imshow([DisparityMap{1}/ndisp,DisparityMap_sparse{1}/ndisp;Refined_DisparityMap_unmask/ndisp,Refined_DisparityMap/ndisp]);
     colormap(gca,jet);
