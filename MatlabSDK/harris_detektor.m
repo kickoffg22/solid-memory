@@ -56,7 +56,7 @@ function merkmale = harris_detektor(input_image, varargin)
     [Ix, Iy] = sobel_xy(input_image);
     
     % Gewichtung
-    w = fspecial('gaussian',[1 segment_length],segment_length/5);
+    w = fspecial_('gaussian',[1 segment_length],segment_length/5);
     W = w'*w;
     
     % Harris Matrix G
@@ -127,4 +127,75 @@ function merkmale = harris_detektor(input_image, varargin)
 %     end
     
   
+end
+%%
+function h = fspecial_(varargin)
+
+[type, p2, p3] = ParseInputs(varargin{:});
+
+switch type
+
+  case 'gaussian' % Gaussian filter
+
+     siz   = (p2-1)/2;
+     std   = p3;
+     
+     [x,y] = meshgrid(-siz(2):siz(2),-siz(1):siz(1));
+     arg   = -(x.*x + y.*y)/(2*std*std);
+
+     h     = exp(arg);
+     h(h<eps*max(h(:))) = 0;
+
+     sumh = sum(h(:));
+     if sumh ~= 0,
+       h  = h/sumh;
+     end;
+end
+end
+%%% ParseInputs
+function [type, p2, p3] = ParseInputs(varargin)
+
+% default values
+p2        = [];
+p3        = [];
+
+% Check the number of input arguments.
+narginchk(1,3);
+
+% Determine filter type from the user supplied string.
+type = varargin{1};
+type = validatestring(type,{'gaussian'},mfilename,'TYPE',1);
+  
+% default values
+switch type
+	
+   case 'gaussian'
+      p2 = [3 3];  % siz
+      p3 = 0.5;    % std
+end
+ 
+switch nargin    
+    case 1
+       % FSPECIAL('gaussian',N,SIGMA)
+       p2 = varargin{2};
+       p3 = varargin{3};
+       
+       switch type
+         
+          case {'gaussian'}
+              validateattributes(p2,{'double'},...
+                            {'positive','finite','real','nonempty','integer'},...
+                            mfilename,'N',2);
+              validateattributes(p3,{'double'},...
+                            {'positive','finite','real','nonempty','scalar'},...
+                            mfilename,'SIGMA',3);
+              if numel(p2) > 2
+                  error(message('images:fspecial:wrongSizeN'))
+              elseif numel(p2)==1
+                  p2 = [p2 p2]; 
+              end
+          otherwise   
+              error(message('images:fspecial:tooManyArgsForThisFilter'))
+      end
+end
 end
