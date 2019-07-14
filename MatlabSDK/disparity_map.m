@@ -1,6 +1,7 @@
 function [D,R,T] = disparity_map(scene_path,varargin)
-[I,ndisp_calib] = input_data(scene_path);%Read im0.png and im1.png from the specified path and read the given ndisp from calib.txt
 [ndisp_input,algorithm,window_radius,min_window_radius,max_window_radius,beta,gamma,pri_MV,pri_MV_r,pos_MV,pos_MV_r,HF,HF_r,BGF,calib] = parse_inputs(varargin);
+
+[I,ndisp_calib] = input_data(scene_path);%Read im0.png and im1.png from the specified path and read the given ndisp from calib.txt
 ndisp = min(ndisp_input,ndisp_calib);
 r_range = min_window_radius:max_window_radius;
 if algorithm ==0
