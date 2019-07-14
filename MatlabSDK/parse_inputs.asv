@@ -17,8 +17,6 @@ default_BGF  = 1;
 
 p = inputParser;
 
-addRequired(p,'path');
-
 validationFcn_ndisp = @(x) isnumeric(x) && isscalar(x) ;
 p.addParameter('ndisp',default_ndisp,validationFcn_ndisp);
 
