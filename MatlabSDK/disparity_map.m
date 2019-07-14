@@ -1,10 +1,10 @@
 % function [D,R,T] = disparity_map(scene_path)
-scene_path = 'D:\test\H\Motorcycle';
+scene_path = 'C:\Users\Wang_\OneDrive\2Semster\Computer Vision\Challenge\MatlabSDK\MiddEval3\trainingH\Motorcycle';
 [I,ndisp] = input_data(scene_path);
-GT = readpfm('D:\test\H\Motorcycle\disp0.pfm');%Modify
+GT = readpfm('C:\Users\Wang_\OneDrive\2Semster\Computer Vision\Challenge\MatlabSDK\MiddEval3\trainingH\Motorcycle\disp0GT.pfm');%Modify
 %     window_radius = round(size(I{1}/250));
 % ndisp = 90;
-   window_radius = 12;
+   window_radius = 6;
 %     ws = 1:10;
 % %     tic();
 tic
@@ -16,7 +16,7 @@ tic
     Refined_DisparityMap = DisparityMap{1};
     toc()
 %     Refined_DisparityMap = BGF(DisparityMap_sparse{1});
-Refined_DisparityMap_unmask(Refined_DisparityMap_unmask>75) = 0;
+% Refined_DisparityMap_unmask(Refined_DisparityMap_unmask>75) = 0;
     Refined_DisparityMap_unmask = refinement(DisparityMap_sparse{1},0);
     Refined_DisparityMap = refinement(DisparityMap_sparse{1},1);
 %     D = Refined_DisparityMap;
