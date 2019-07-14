@@ -2,12 +2,6 @@
 scene_path = 'D:\test\Motorcycle';
 [I,ndisp] = input_data(scene_path);
 GT = readpfm('D:\test\Motorcycle\disp0.pfm');%Modify
-%     window_radius = round(size(I{1}/250));
-% ndisp = 90;
-% scene_path = 'C:\Users\Wang_\OneDrive\2Semster\Computer Vision\Challenge\MatlabSDK\MiddEval3\trainingH\Motorcycle';
-% [I,ndisp] = input_data(scene_path);
-% GT = readpfm('C:\Users\Wang_\OneDrive\2Semster\Computer Vision\Challenge\MatlabSDK\MiddEval3\trainingH\Motorcycle\disp0GT.pfm');%Modify
-%     window_radius = round(size(I{1}/250));
 ndisp = 270;
    window_radius = 12;
     ws = 2:35;

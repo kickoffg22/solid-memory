@@ -1,7 +1,7 @@
-function [ndisp,algorithm,window_radius,beta,gamma,pri_MV,pri_MV_r,pos_MV,HF,HF_r] = parse_inputs(width,varargin)
+function [ndisp,algorithm,window_radius,beta,gamma,pri_MV,pri_MV_r,pos_MV,HF,HF_r] = parse_inputs(varargin)
 fprintf('Performing Census Tranform \n');
 p = inputParser;
-default_ndisp  = round(width/5);
+default_ndisp  = 370;
 validationFcn_ndisp = @(x) isnumeric(x) && isscalar(x) && x>0 &&isinteger(x);
 p.addParameter('ndisp',default_ndisp,validationFcn_ndisp);
 
@@ -25,7 +25,7 @@ default_pri_MV  = 2;
 validationFcn_pri_MV = @(x) isnumeric(x) && isscalar(x) && x>0 &&isinteger(x);
 p.addParameter('pri_MV',default_pri_MV,validationFcn_pri_MV); 
 
-default_pri_MV_r  = 2;
+default_pri_MV_r  = 3;
 validationFcn_pri_MV_r = @(x) isnumeric(x) && isscalar(x) && x>0 &&isinteger(x);
 p.addParameter('pri_MV_r',default_pri_MV_r,validationFcn_pri_MV_r); 
 
@@ -33,7 +33,7 @@ default_pos_MV  = 2;
 validationFcn_pos_MV = @(x) isnumeric(x) && isscalar(x) && x>0 &&isinteger(x);
 p.addParameter('pos_MV',default_pos_MV,validationFcn_pos_MV); 
 
-default_pos_MV_r  = 2;
+default_pos_MV_r  = 3;
 validationFcn_pos_MV_r = @(x) isnumeric(x) && isscalar(x) && x>0 &&isinteger(x);
 p.addParameter('pos_MV_r',default_pos_MV_r,validationFcn_pos_MV_r); 
 
@@ -41,7 +41,7 @@ default_HF  = 3;
 validationFcn_HF = @(x) isnumeric(x) && isscalar(x) && x>0 &&isinteger(x);
 p.addParameter('HF',default_HF,validationFcn_HF); 
 
-default_HF_r  = 2;
+default_HF_r  = 4;
 validationFcn_HF_r = @(x) isnumeric(x) && isscalar(x) && x>0 &&isinteger(x);
 p.addParameter('HF_r',default_HF_r,validationFcn_HF_r); 
 
