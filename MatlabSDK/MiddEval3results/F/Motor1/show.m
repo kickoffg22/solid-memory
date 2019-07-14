@@ -1,0 +1,12 @@
+figure()
+imshow(DisparityMap{1}/280)
+colormap(gca,jet)
+colorbar
+figure()
+imshow(DisparityMap_sparse{1}/280)
+colormap(gca,jet)
+colorbar
+figure()
+imshow(Refined_DisparityMap/280)
+colormap(gca,jet)
+colorbar

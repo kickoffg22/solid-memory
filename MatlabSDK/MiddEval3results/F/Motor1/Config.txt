@@ -1,6 +1,6 @@
 Census_WM_joint
 window_radius = 12
 Refine:
-Majority vote:2*r3
+Majority vote:2*r6
 Hole_filling:3*r4
-Majority vote:2*r3
+Majority vote:2*r6
