@@ -5,7 +5,7 @@
 % again to try to remove outliers. Finally, function BGF is used to fill
 % the missing background which are still invalid.
 function R_DM  = refinement(DM,F_BG)
-tic
+
 [rows,cols] = size(DM);
 R_DM = DM;
 for i =1:2 %Times of interation 
@@ -21,5 +21,5 @@ end
 if F_BG ==1
 R_DM = BGF(R_DM);
 end
-toc
+
 end
