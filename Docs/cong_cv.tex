@@ -1,0 +1,28 @@
+\documentclass{article}
+\begin{document}
+
+This paper[!!] presents a leading local algorithm and then accelerate it by parallel computing. The matching accuracy is increased because of cost aggregation over shape-adaptive support regions and disparity refinement using reliable initial estimates. The refinement and the restoration are jointly realized by a local voting method.
+
+After cost aggregation, initial disparity estimates are selected using a WTA method. The errors of initial estimates mainly lie in homogeneous regions and occluded regions. In homogeneous regions, the aggregated matching costs at different disparities are usually similar and lack of discriminative power, therefore yielding noisy results. In the occluded regions, since there is no correspondence for the pixels in the other view, a local WTA framework is difficult to handle these pixels. In our assignment, we use this voting method to make the algorithm robust and more accurate.
+
+The reliability of initial estimates is determined by a left-right consistency check, i.e., the disparity of \textit{p} in the left image should have the similar absolute value as the disparity of the point $(x_p - d_p, y_p) $ in the right image. If the disparity estimate $d_p $ passes the consistency check, it is labeled as reliable $ \eta(d_p=1) $, otherwise it is labeled as unreliable $ \eta(d_p=0) $.
+
+We refine all the initial estimates with a similar local voting method. At each pixel \textit{p}, we build a histogram $\varphi_p(.) $ over the reliable disparities in its support region as follows:
+
+\begin{equation}
+\varphi_p(d) = \sum_{s\inU(p)}^{} \delta(d_s - d)\eta(d_s)
+
+\end{equation}
+
+where $\delta(.)$ is an impulse function. The disparity $d^{*}_p $  associated with the peak of the histogram is taken as the optimal disparity for \textit{p} as follows:
+\begin{equation}
+
+
+d^{*}_p = \operatorname{argmax} \varphi_{p}(d), d\in[0,d_{max}].
+\end{equation}
+
+The proposed refinement improves the matching accuracy. First, it acts as a regularization in local support regions and the regularization effectively removes the spurious errors. Second, by propagating the disparity information of their neighbors, the refinement infers the disparity of occluded areas and often attains accurate results for the
+occluded pixels.
+
+
+\end{document}
