@@ -1,4 +1,4 @@
-function [ndisp,algorithm,window_radius,beta,gamma,pri_MV,pri_MV_r,pos_MV,HF,HF_r,BGF] = parse_inputs(varargin)
+function [ndisp,algorithm,window_radius,beta,gamma,pri_MV,pri_MV_r,pos_MV,pos_MV_r,HF,HF_r,BGF] = parse_inputs(varargin)
 fprintf('Performing Census Tranform \n');
 p = inputParser;
 default_ndisp  = 370;
@@ -58,6 +58,7 @@ beta = p.Results.beta;
 pri_MV = p.Results.pri_MV;
 pri_MV_r = p.Results.pri_MV_r;
 pos_MV = p.Results.pos_MV;
+pos_MV_r = p.Results.pos_MV_r;
 HF_r = p.Results.HF_r;
 HF = p.Results.HF;
 BGF = p.Results.BGF;

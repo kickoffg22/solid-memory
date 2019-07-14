@@ -4,19 +4,17 @@
 % original map and refine the edges, Majorty vote is performed
 % again to try to remove outliers. Finally, function BGF is used to fill
 % the missing background which are still invalid.
-function R_DM  = refinement(DM,F_BG)
-
-[rows,cols] = size(DM);
+function R_DM  = refinement(DM,pri_MV,pri_MV_r,pos_MV,HF,HF_r,F_BG)
 R_DM = DM;
-for i =1:2 %Times of interation 
-R_DM = major_vote(DM,3);%Radius of hole majority vote window
+for i =1:pri_MV %Times of interation 
+R_DM = major_vote(DM,pri_MV_r);%Radius of hole majority vote window
 end
 
-for i = 1:3%Times of hole filling 
-R_DM = hole_filling_m(R_DM,4,4);%Radius of hole filling window
+for i = 1:HF%Times of hole filling 
+R_DM = hole_filling_m(R_DM,HF_r,HF_r);%Radius of hole filling window
 end
-for i =1:2
-    R_DM = major_vote(R_DM,3);
+for i =1:pos_MV
+    R_DM = major_vote(R_DM,pri_MV_r);
 end
 if F_BG ==1
 R_DM = BGF(R_DM);
