@@ -21,6 +21,18 @@ classdef test_cong < matlab.unittest.TestCase
             testCase.verifyGreaterThan(T,0);
             testCase.verifyGreaterThan(p,0);  
         end
+        
+        %% function check_psnr not completed
+         function check_psnr(testCase) 
+             import matlab.unittest.constraints.IsEqualTo;
+             import matlab.unittest.constraints.AbsoluteTolerance;
+             path = ''; %% 需要添加image path
+             [D,~,~] = disparity_map(path);
+             GT = pfmread([path,'\disp0.pfm']);
+             p_cal = verify_dmap(); %% 需要添加参数
+             p_opt = psnr(double(D), double(uint8(GT)));
+             testCase.forInteractiveUse.verifyThat(double(p_cal), IsEqualTo(p_opt, 'within', AbsoluteTolerance(0.05)));
+        end
     end
 end
 
