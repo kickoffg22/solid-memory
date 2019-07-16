@@ -1,7 +1,7 @@
 %% This function performs window match by means of Census transform.
 % The aggregation is performed by means of integral to calculate the sum of
-% rectangular area.The window size is adaptive 
-% The cost function is based on hamming distance and a penalty on small window.
+% rectangular area.
+% The cost function is based on hamming distance.
 function [D1,D2,C1] = Census_WM_adp(I1, I2, ws, ndisp,beta,gamma)
 %Image allignment
 [~,cols,~] = size(I1);

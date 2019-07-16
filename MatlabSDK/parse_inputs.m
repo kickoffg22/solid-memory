@@ -12,7 +12,7 @@ default_pos_MV  = 2;
 default_pos_MV_r  = 3;
 default_HF  = 3;
 default_HF_r  = 4;
-default_calib  = 2;
+default_calib  = 1;
 default_BGF  = 1;
 
 p = inputParser;

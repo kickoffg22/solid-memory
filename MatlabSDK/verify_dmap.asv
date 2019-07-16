@@ -10,6 +10,8 @@ default_calib  = 1;
 validationFcn_calib = @(x) isnumeric(x) && isscalar(x);
 p.addParameter('calib',default_calib,validationFcn_calib);
 calib = p.Results.calib;
-D = uint8(D*calib);
+
+G = uint8(G*calib*255/max(G(:)));%Nomolize the input matrix to interval[0,255];
+D = uint8(D*255/max(G(:)));
 p = calcPSNR(D,G);
 end
