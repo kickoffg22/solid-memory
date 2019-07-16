@@ -1,7 +1,7 @@
 % path = 'C:\Challenge\motorcycle';
 path = 'D:\test\playground';
   GT = readpfm(['D:\test\playground\disp0.pfm']);%Modify
-  D = disparity_map(path)
+  D = disparity_map(path);
 %   GT = uint8(GT);
 % [I,ndisp_calib] = input_data(path);%Read im0.png and im1.png from the specified path and read the given ndisp from calib.txt
 % ndisp = 20;

@@ -12,9 +12,9 @@ function Korrespondenzen = punkt_korrespondenzen(I1,I2,Mpt1,Mpt2,varargin)
     p.addRequired('Mpt1');    
     p.addRequired('Mpt2');
     
-    defaultwindow_length = 25; %窗口长度
+    defaultwindow_length = 25; 
     p.addOptional('window_length', defaultwindow_length, @(x) isnumeric(x) && (x > 1) && (mod(x,2) ~= 0));
-    defaultmin_corr = 0.95; %阈值
+    defaultmin_corr = 0.95;
     p.addOptional('min_corr', defaultmin_corr, @(x) isnumeric(x) && (x >= 0) && (x <= 1));
     defaultdo_plot = false;
     p.addOptional('do_plot', defaultdo_plot, @(x) islogical(x));
@@ -30,9 +30,6 @@ function Korrespondenzen = punkt_korrespondenzen(I1,I2,Mpt1,Mpt2,varargin)
     %Korrespondenzen = {window_length, min_corr, do_plot, Im1, Im2}
     
     %% Merkmalsvorbereitung
-    %删除距离边缘小于window_length/2的特征点
-    %Mpt1和Mpt2是Harris检测出来的特征点
-    %merkmale(:,all(merkmale==0,1)) = []; 删除全为0的一列
     [row1,col1] = size(I1);
     [row2,col2] = size(I2);
     
@@ -54,7 +51,7 @@ function Korrespondenzen = punkt_korrespondenzen(I1,I2,Mpt1,Mpt2,varargin)
     %Korrespondenzen = {no_pts1, no_pts2, Mpt1, Mpt2};
     
     %% Normierung
-    %平均值mean(M(:))，标准差std(M(:))
+    Mat_feat_1 = zeros(1,length(Mpt1));
     for i = 1:length(Mpt1)
         norm_fenster1 = double(I1(Mpt1(2,i)-floor((1/2)*window_length):Mpt1(2,i)+floor((1/2)*window_length),Mpt1(1,i)-floor((1/2)*window_length):Mpt1(1,i)+floor((1/2)*window_length)));
         mean1 = mean(norm_fenster1(:));
@@ -63,6 +60,7 @@ function Korrespondenzen = punkt_korrespondenzen(I1,I2,Mpt1,Mpt2,varargin)
         Mat_feat_1(:,i) = reshape(norm_fenster1,[window_length*window_length,1]);
     end
     
+    Mat_feat_2 = zeros(1,length(Mpt2));
     for i = 1:length(Mpt2)
         norm_fenster2 = double(I2(Mpt2(2,i)-floor((1/2)*window_length):Mpt2(2,i)+floor((1/2)*window_length),Mpt2(1,i)-floor((1/2)*window_length):Mpt2(1,i)+floor((1/2)*window_length)));
         mean2 = mean(norm_fenster2(:));
