@@ -3,6 +3,7 @@
 % rectangular area.The window size is adaptive 
 % The cost function is based on hamming distance and a penalty on small window.
 function [D1,D2,C1] = Census_WM_adp(I1, I2, ws, ndisp,beta,gamma)
+f1 = waitbar(0.07,'Performing Census transform');
 %Image allignment
 [~,cols,~] = size(I1);
 [rows,cols2,~] = size(I2);
@@ -19,21 +20,13 @@ C2min = Inf(rows,cols);
 D1 = zeros(rows,cols);% Matrix of disparity of minimum cost
 D2 = zeros(rows,cols);
 max_d = min(ndisp,cols-max(max_window_radius(:)));
-n = 0;
+
 %% Census Transform
-tic
 IC1 = CT(I1);
 IC2 = CT(I2);
-toc
 %% Window matching along the epipolarline
 for d = 1:max_d
-    if n==round(max_d/10)
-    fprintf('%04d percent completed', round(d/max_d*100));
-    fprintf('\n');
-    n=0;
-    else
-        n = n+1;
-    end
+    waitbar((d/max_d+0.1)*0.8/1.1,f1,'Processing data');
  %% Computing pixelwise Hamming distance
     range1 = 1+d:cols;% Searching range in the left image
     range2 = 1:cols-d;% Searching range in the right image
@@ -81,7 +74,10 @@ end
     D1(:,range1) = D1c;
     D2(:,range2) = D2c;
     C1 = C1min;
+    
 end
+    close(f1);
+
 end
 
 

@@ -5,7 +5,7 @@ function [Fx, Fy] = sobel_xy(input_image)
     hx=[1 0 -1; 2 0 -2; 1 0 -1];
     hy=[1 2 1; 0 0 0; -1 -2 -1];
     
-    Fx=conv2(input_image,hx,'same');  
-    Fy=conv2(input_image,hy,'same');  
+    Fx=conv2(double(input_image),double(hx),'same');  
+    Fy=conv2(double(input_image),double(hy),'same');  
 
 end 

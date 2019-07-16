@@ -3,6 +3,7 @@
 % rectangular area.
 % The cost function is a combination of SAD of color and hamming distance.
 function [D1,D2,C1min,C2min] = Census_WM_joint(I1, I2, window_radius, ndisp)
+f1 = waitbar(.07,'Performing Census transform');
 %% Image allignment
 [~,cols,~] = size(I1);
 [rows,cols2,~] = size(I2);
@@ -20,19 +21,11 @@ D2 = zeros(rows,cols);
 max_d = min(ndisp,cols-max(window_radius(:)));
 n=0;
 %% Census Transform
-tic
 IC1 = CT(I1,'window_length',7,'window_width',7);
 IC2 = CT(I2,'window_length',7,'window_width',7);
-toc
 %% Window matching along the epipolarline
 for d = 1:max_d
-    if n==round(d/max_d*100)
-    fprintf('%04d percent completed', round(d/max_d*100));
-    fprintf('\n');
-    n=0;
-    else
-        n = n+1;
-    end
+     waitbar((d/max_d+0.1)*0.8/1.1,f1,'Processing data');
  %% Computing pixelwise Hamming distance
     range1 = max(1,1+d):min(size(I1,2),size(I1,2)+d);
     range2 = max(1,1-d):min(size(I1,2),size(I1,2)-d);
@@ -83,8 +76,8 @@ for d = 1:max_d
     C2min(:,range2) = C2c;
     D1(:,range1) = D1c;
     D2(:,range2) = D2c;
-    
 end
+    close(f1);
 end
 
 

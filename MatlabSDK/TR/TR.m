@@ -2,7 +2,7 @@ function [T,R]=TR(scene_path)
     % Diese Funktion berechnet die moeglichen Werte fuer T und R
     % aus der Essentiellen Matrix
     % Bilder laden
-    [I,ndisp] = input_data(scene_path)
+    [I,~] = input_data(scene_path)
     %Image1 = imread('im0.png');
     IGray1 = rgb_to_gray(I{1});
     %Image2 =imread('im1.png');
