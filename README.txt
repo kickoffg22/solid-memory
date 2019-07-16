@@ -8,16 +8,16 @@ This function has input parser which has a folder path as required input and 15 
 The output of the function is the disparity map D, rotation matrix R and translation vector T.
 The function will read 'im0.png' and 'im1.png' from the given folder and ndisp from 'calib.txt' and performing disparity map calculation.
 It has 2 optional algorithms which can be selected with parameter 'algorithm'.
-The output of D will be divided by a nomorlization factor ¡®calib¡¯(default:1) to prevent overflow.
+The output of D will be divided by a nomorlization factor Â¡Â®calibÂ¡Â¯(default:1) to prevent overflow.
 Input list:
-¡®ndisp¡¯: positive integer, used to set the maximum disparity range manually, the minimum of the input ndisp and the value read from the 'calib.txt' will be used.
-¡®algorithm¡¯: logic, used to select algorithm, default value:0. With 0, window matching with adaptive window size will be performed. With 1, a window matching with fixed window size and joint matching cost will be performed.
-¡®window_radius¡¯: positive integer, default value:6. Radius of aggregation window size in fixed window matching. (Only matters when algorithm¡¯ = 1)
-¡®min_window_radius¡¯, ¡®max_window_radius¡¯: Radius range of aggregation window size in adaptive window matching.Positive integer, default value: 2,20.  (Only matters when algorithm¡¯ = 0)
-¡®beta¡¯,¡¯gamma¡¯: positive, penalty coefficient for small window size in adaptive window matching, the larger these values are, the larger the penalty, gamma should be smaller than 2* window +1. (Only matters when algorithm¡¯ = 1)
-¡®pri_MV', 'pri_MV_r', 'pos_MV', 'pos_MV_r', 'HF', 'HF_r': Refinement factors,positive integers, default value:2,3,3,4,2,3.  Determine the number of iteration and radius of window in majority vote before and after hole filling and number of iteration and radius of window in hole filling.
-¡®BGF¡¯: logic, default value:1. Determine whether the background filling will be performed.
-¡®calib¡¯: positive, default value:1, a normalization factor used to prevent overflow in disparity map output.
+Â¡Â®ndispÂ¡Â¯: positive integer, used to set the maximum disparity range manually, the minimum of the input ndisp and the value read from the 'calib.txt' will be used.
+Â¡Â®algorithmÂ¡Â¯: logic, used to select algorithm, default value:0. With 0, window matching with adaptive window size will be performed. With 1, a window matching with fixed window size and joint matching cost will be performed.
+Â¡Â®window_radiusÂ¡Â¯: positive integer, default value:6. Radius of aggregation window size in fixed window matching. (Only matters when algorithmÂ¡Â¯ = 1)
+Â¡Â®min_window_radiusÂ¡Â¯, Â¡Â®max_window_radiusÂ¡Â¯: Radius range of aggregation window size in adaptive window matching.Positive integer, default value: 2,20.  (Only matters when algorithmÂ¡Â¯ = 0)
+Â¡Â®betaÂ¡Â¯,Â¡Â¯gammaÂ¡Â¯: positive, penalty coefficient for small window size in adaptive window matching, the larger these values are, the larger the penalty, gamma should be smaller than 2* window +1. (Only matters when algorithmÂ¡Â¯ = 1)
+Â¡Â®pri_MV', 'pri_MV_r', 'pos_MV', 'pos_MV_r', 'HF', 'HF_r': Refinement factors,positive integers, default value:2,3,3,4,2,3.  Determine the number of iteration and radius of window in majority vote before and after hole filling and number of iteration and radius of window in hole filling.
+Â¡Â®BGFÂ¡Â¯: logic, default value:1. Determine whether the background filling will be performed.
+Â¡Â®calibÂ¡Â¯: positive, default value:1, a normalization factor used to prevent overflow in disparity map output.
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -29,6 +29,23 @@ D: uint8 matrix of disparity map;
 G: uint8 matrix of ground truth;
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Class 'Unittests'
+The purpose of this class (Unittests) is to check the properties of our function.
+It is composed of three parts: 
+1.testToolboxes
+To check if there are no toolboxes used in our three functions: 
+'challenge.m',' disparity_map.m', 'verify_dmap.m'.
+2. testVariables
+a) To check if these variables in challenge.m are not empty: 
+group_member, members, mail
+b) To check if these variables in challenge.m are larger than zero:
+elapsed_time, D, R, T, p
+3. check_psnr
+To check the difference between the calculated PSNR (got from function varify_dmap) 
+and the actual PSNR (got from image processing toolbox) are smaller than 5%.
 
+In order to run the unittest, input 
+run(Unittests) 
+in the command window.
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
