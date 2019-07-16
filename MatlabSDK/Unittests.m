@@ -1,5 +1,5 @@
 %{
-Readmeï¼š
+Readmeï¼?
 --------------------------------------------------------------------------------------
 The purpose of this class (Unittests) is to check the properties of our function.
 It is composed of three parts: 
@@ -51,8 +51,8 @@ classdef Unittests < matlab.unittest.TestCase
              import matlab.unittest.constraints.AbsoluteTolerance;
              
              challenge; %% Call the function
-             p_cal = verify_dmap(D, double(uint8(G)));  % calculated PSNR
-             p_opt = psnr(double(D), double(uint8(G))); % PSNR from image processing toolbox
+             p_cal = verify_dmap(D, uint8(GT),max(max(D(:),max(uint8(GT(:))))));  % calculated PSNR
+             p_opt = psnr(D,uint8(GT),max(max(D(:),max(uint8(GT(:)))))); % PSNR from image processing toolbox
              testCase.forInteractiveUse.verifyThat(double(p_cal), IsEqualTo(p_opt, 'within', AbsoluteTolerance(0.05)));
              % check if the calculated PSNR error small than 5%
         end

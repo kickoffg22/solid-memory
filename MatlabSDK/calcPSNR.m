@@ -7,6 +7,9 @@ parse(p,varargin{:});
 pv = p.Results.peak;
 im1 = p.Results.im1;
 im2 = p.Results.im2;
+im1 = double(im1);
+im2 = double(im2);
+pv = double(pv);
 PSNR = 10*log10(pv^2/calcMSE(im1,im2));
 end
 
