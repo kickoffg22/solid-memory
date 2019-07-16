@@ -18,9 +18,9 @@ end
     % Diese Funktion berechnet die moeglichen Werte fuer T und R
     % aus der Essentiellen Matrix
     %% Bilder laden
-    Image1 = imread('im0.png');
+    Image1 = I{1};
     IGray1 = rgb_to_gray(Image1);
-    Image2 =imread('im1.png');
+    Image2 = I{2};
     IGray2 = rgb_to_gray(Image2);
 
     %% Harris-Merkmale berechnen
@@ -29,9 +29,7 @@ end
     %% Korrespondenzschaetzung
     Korrespondenzen = punkt_korrespondenzen(IGray1,IGray2,Merkmale1,Merkmale2,'window_length',25,'min_corr',0.95,'do_plot',false);
     %% Berechne die Essentielle Matrix
-    %load('K.mat');
     E = achtpunktalgorithmus(Korrespondenzen);
-    % disp(E);
     %%
     [U,S,V] = svd(E);
     U = U * [1 0 0; 0 1 0; 0 0 -1];

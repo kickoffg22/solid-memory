@@ -1,5 +1,13 @@
-function [PSNR] = calcPSNR(im1,im2)
-PSNR = 10*log10(255^2/calcMSE(im1,im2));
+function [PSNR] = calcPSNR(varargin)
+p = inputParser;
+addRequired(p,'im1');
+addRequired(p,'im2');
+addOptional(p,'peak',255); 
+parse(p,varargin{:});
+pv = p.Results.peak;
+im1 = p.Results.im1;
+im2 = p.Results.im2;
+PSNR = 10*log10(pv^2/calcMSE(im1,im2));
 end
 
 %% Calulate mean square error

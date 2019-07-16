@@ -22,13 +22,32 @@ Input list:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Function 'verify_dmap'
-Example: p = verify_dmap(D, G)
+Example: p = verify_dmap(D, G),p = verify_dmap(D, G,30)
 This function calculates the psnr value of the two input matrices which must be of uint8 type in [0,255]. The output value is the psnr value.
 Input list:
 D: uint8 matrix of disparity map;
 G: uint8 matrix of ground truth;
+peak: peak value of the input image, default value:255. For disparity maps with the largerst disparity much smaller than 255, this input is necessary to get a right PSNR value. 
+--------------------------------------------------------------------------------------
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+The purpose of this class (Unittest) is to check the properties of our function.
+It is composed of three parts: 
 
+1.testToolboxes
+To check if there are no toolboxes used in our three functions: 
+'challenge.m',' disparity_map.m', 'verify_dmap.m'.
+
+2. testVariables
+a) To check if these variables in challenge.m are not empty: 
+group_member, members, mail
+b) To check if these variables in challenge.m are larger than zero:
+elapsed_time, D, R, T, p
+
+3. check_psnr
+To check the difference between the calculated PSNR (got from function varify_dmap) 
+and the actual PSNR (got from image processing toolbox) are smaller than 5%.
+
+In order to run the unittest, input 
+run(Unittests) 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
