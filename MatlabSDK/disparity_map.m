@@ -15,6 +15,6 @@ end
     D = uint8(Refined_DisparityMap/calib);% The map is divided by a calibration index to prevent overflow.
 %% T,R calculation
 
-    [T,R]=TR()
+    [T,R]=TR(scene_path)
 
 end
