@@ -1,13 +1,16 @@
-function [T,R]=TR()
+function [T,R]=TR(scene_path)
     % Diese Funktion berechnet die moeglichen Werte fuer T und R
     % aus der Essentiellen Matrix
     %% Bilder laden
-    Image1 = imread('im0.png');
-    IGray1 = rgb_to_gray(Image1);
-    Image2 =imread('im1.png');
-    IGray2 = rgb_to_gray(Image2);
+    [I,ndisp] = input_data(scene_path)
+    %Image1 = imread('im0.png');
+    IGray1 = rgb_to_gray(I{1});
+    %Image2 =imread('im1.png');
+    IGray2 = rgb_to_gray(I{2});
     
-    fileID = fopen('calib.txt');
+    S2 = dir(fullfile(scene_path,'calib.txt'));
+    F2 = fullfile(scene_path,S2(1).name);
+    fileID = fopen(F2);
     K = textscan(fileID,'%*cam0=[ %f%f%f %*c%f%f%f %*c%f%f%f',1);
     fclose(fileID);
     K = cell2mat(K); 
