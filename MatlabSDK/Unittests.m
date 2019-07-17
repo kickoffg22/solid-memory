@@ -55,7 +55,7 @@ classdef Unittests < matlab.unittest.TestCase
              
              challenge; %% Call the function
              p_cal = p;  % calculated PSNR
-             p_opt = psnr(D,GT,max(max(D(:),max(GT(:))))); % PSNR from image processing toolbox
+             p_opt = psnr(D,GT_u,max(max(D(:),max(GT(:))))); % PSNR from image processing toolbox
              %testCase.forInteractiveUse.verifyThat(double(p_cal), IsEqualTo(p_opt, 'within', AbsoluteTolerance(0.05)));
              testCase.verifyEqual(p_cal,p_opt,'RelTol',0.05);
              % check if the calculated PSNR error small than 5%
