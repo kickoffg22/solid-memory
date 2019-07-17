@@ -1,5 +1,5 @@
 %{
-Readmeï¼?
+Readme?
 --------------------------------------------------------------------------------------
 The purpose of this class (Unittests) is to check the properties of our function.
 It is composed of three parts: 
@@ -29,13 +29,13 @@ classdef Unittests < matlab.unittest.TestCase
     
     methods(Test)
         function testToolboxes(testCase)  % check if no toolboxes are used in these functions
-            testCase.verifyFalse(check_toolboxes('challenge.m'));
+            testCase.verifyFalse(check_toolboxes('Challenge.m'));
             testCase.verifyFalse(check_toolboxes('disparity_map.m'));
             testCase.verifyFalse(check_toolboxes('verify_dmap.m'));
         end
         
         function testVariables(testCase) % check if the necessary values are not empty as well as larger than zero
-            challenge;       %% Call the function  
+            Challenge;       %% Call the function  
             testCase.verifyNotEmpty(group_number);
             testCase.verifyNotEmpty(members);
             testCase.verifyNotEmpty(mail);
@@ -50,7 +50,7 @@ classdef Unittests < matlab.unittest.TestCase
              import matlab.unittest.constraints.IsEqualTo;
              import matlab.unittest.constraints.AbsoluteTolerance;
              
-             challenge; %% Call the function
+             Challenge; %% Call the function
              p_cal = verify_dmap(D, uint8(GT),max(max(D(:),max(uint8(GT(:))))));  % calculated PSNR
              p_opt = psnr(D,uint8(GT),max(max(D(:),max(uint8(GT(:)))))); % PSNR from image processing toolbox
              testCase.forInteractiveUse.verifyThat(double(p_cal), IsEqualTo(p_opt, 'within', AbsoluteTolerance(0.05)));
