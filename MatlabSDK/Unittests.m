@@ -51,9 +51,10 @@ classdef Unittests < matlab.unittest.TestCase
              import matlab.unittest.constraints.AbsoluteTolerance;
              
              Challenge; %% Call the function
-             p_cal = verify_dmap(D, uint8(GT),max(max(D(:),max(uint8(GT(:))))));  % calculated PSNR
-             p_opt = psnr(D,uint8(GT),max(max(D(:),max(uint8(GT(:)))))); % PSNR from image processing toolbox
-             testCase.forInteractiveUse.verifyThat(double(p_cal), IsEqualTo(p_opt, 'within', AbsoluteTolerance(0.05)));
+             p_cal = PSNR;  % calculated PSNR
+             p_opt = psnr(D,GT,max(max(D(:),max(GT(:))))); % PSNR from image processing toolbox
+             %testCase.forInteractiveUse.verifyThat(double(p_cal), IsEqualTo(p_opt, 'within', AbsoluteTolerance(0.05)));
+             testCase.verifyEqual(p_cal,p_opt,'RelTol',0.05);
              % check if the calculated PSNR error small than 5%
         end
     end
