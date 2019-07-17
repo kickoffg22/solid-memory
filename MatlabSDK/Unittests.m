@@ -29,29 +29,32 @@ classdef Unittests < matlab.unittest.TestCase
     
     methods(Test)
         function testToolboxes(testCase)  % check if no toolboxes are used in these functions
-            testCase.verifyFalse(check_toolboxes('Challenge.m'));
+            testCase.verifyFalse(check_toolboxes('challenge.m'));
             testCase.verifyFalse(check_toolboxes('disparity_map.m'));
             testCase.verifyFalse(check_toolboxes('verify_dmap.m'));
         end
         
         function testVariables(testCase) % check if the necessary values are not empty as well as larger than zero
-            Challenge;       %% Call the function  
+            challenge;       %% Call the function  
             testCase.verifyNotEmpty(group_number);
             testCase.verifyNotEmpty(members);
             testCase.verifyNotEmpty(mail);
-            testCase.verifyGreaterThan(time_taken,0);
-            testCase.verifyGreaterThan(D,0);
-            testCase.verifyGreaterThan(R,0);
-            testCase.verifyGreaterThan(T,0);
-            testCase.verifyGreaterThan(PSNR,0);  
+            testCase.verifyNotEmpty(R);
+            testCase.verifyNotEmpty(elapsed_time);
+            testCase.verifyNotEmpty(D);
+            testCase.verifyNotEmpty(T);
+            testCase.verifyNotEmpty(p);
+           
+            testCase.verifyGreaterThan(elapsed_time,0);          
+            testCase.verifyGreaterThan(p,0);  
         end
         
          function check_psnr(testCase)  % check if the error of calculated PSNR is small than 5%
              import matlab.unittest.constraints.IsEqualTo;
              import matlab.unittest.constraints.AbsoluteTolerance;
              
-             Challenge; %% Call the function
-             p_cal = PSNR;  % calculated PSNR
+             challenge; %% Call the function
+             p_cal = p;  % calculated PSNR
              p_opt = psnr(D,GT,max(max(D(:),max(GT(:))))); % PSNR from image processing toolbox
              %testCase.forInteractiveUse.verifyThat(double(p_cal), IsEqualTo(p_opt, 'within', AbsoluteTolerance(0.05)));
              testCase.verifyEqual(p_cal,p_opt,'RelTol',0.05);
