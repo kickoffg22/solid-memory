@@ -1,4 +1,4 @@
-G22
+﻿G22
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Instruction of ‘start_gui.fig’
@@ -18,7 +18,7 @@ This function has input parser which has a folder path as required input and 15 
 The output of the function is the disparity map D, rotation matrix R and translation vector T.
 The function will read 'im0.png' and 'im1.png' from the given folder and ndisp from 'calib.txt' and performing disparity map calculation.
 It has 2 optional algorithms which can be selected with parameter 'algorithm'.
-The output of D will be divided by a nomorlization factor ¡®calib¡¯(default:1) to prevent overflow.
+The output of D will be divided by a nomorlization factor 'calib'(default:1) to prevent overflow.
 Input list:
 'ndisp': positive integer, used to set the maximum disparity range manually, the minimum of the input ndisp and the value read from the 'calib.txt' will be used.
 'algorithm': logic, used to select algorithm, default value:0. With 0, window matching with adaptive window size will be performed. With 1, a window matching with fixed window size and joint matching cost will be performed.
@@ -40,6 +40,7 @@ G: uint8 matrix of ground truth;
 peak: peak value of the input image, default value:255. For disparity maps with the largerst disparity much smaller than 255, this input is necessary to get a right PSNR value. 
 --------------------------------------------------------------------------------------
 
+Unittest
 The purpose of this class (Unittest) is to check the properties of our function.
 It is composed of three parts: 
 

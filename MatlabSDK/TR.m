@@ -2,7 +2,7 @@ function [T,R]=TR(scene_path)
     % Diese Funktion berechnet die moeglichen Werte fuer T und R
     % aus der Essentiellen Matrix
     % Bilder laden
-    [I,~] = input_data(scene_path)
+    [I,~] = input_data(scene_path);
     %Image1 = imread('im0.png');
     IGray1 = rgb_to_gray(I{1});
     %Image2 =imread('im1.png');
@@ -53,8 +53,8 @@ function [T,R]=TR(scene_path)
           T2_hat(2,1)];
 %
 [T, R] = rekonstruktion(T1, T2, R1, R2, Korrespondenzen, K);
-T = max(abs(T));
+
 if(det(R)<0)
-     R = abs(R);
+     R = -R;
 end
 end
