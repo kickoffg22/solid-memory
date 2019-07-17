@@ -39,11 +39,11 @@ classdef Unittests < matlab.unittest.TestCase
             testCase.verifyNotEmpty(group_number);
             testCase.verifyNotEmpty(members);
             testCase.verifyNotEmpty(mail);
-            testCase.verifyGreaterThan(elapsed_time,0);
+            testCase.verifyGreaterThan(time_taken,0);
             testCase.verifyGreaterThan(D,0);
             testCase.verifyGreaterThan(R,0);
             testCase.verifyGreaterThan(T,0);
-            testCase.verifyGreaterThan(p,0);  
+            testCase.verifyGreaterThan(PSNR,0);  
         end
         
          function check_psnr(testCase)  % check if the error of calculated PSNR is small than 5%
