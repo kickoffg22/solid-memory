@@ -1,5 +1,42 @@
-% input variable
-pfad='C:\Users\matth\Desktop\solid-memory-master\MatlabSDK\MiddEval3\trainingH\Motorcycle';
+%% Computer Vision Challenge 2019
+
+% Group number:
+group_number = 'G22';
+
+% Group members:
+% members = {'Max Mustermann', 'Johannes Daten'};
+members = {'Shuo Ma','Cong Wang','Fengyi Wang','Chengjie Yuan','Wenjian Zhao'};
+
+% Email-Address (from Moodle!):
+% mail = {'ga99abc@tum.de', 'daten.hannes@tum.de'};
+mail = {'matthew.ma@tum.de','ge57qom@mytum.de','ge25cer@mytum.de','jerrycj622.yuan@tum.de','ge73pih@mytum.de'};
+
+%% Start timer here
+tic;
+
+%% Disparity Map
+<<<<<<< HEAD
+%     image_names{1} = 'Adirondack';
+%     image_names{2} = 'ArtL';
+%     image_names{3} = 'Jadeplant';
+    image_names{4} = 'Motorcycle';
+%     image_names{5} = 'MotorcycleE';
+%     image_names{6} = 'Piano';
+%     image_names{7} = 'PianoL';
+%     image_names{8} = 'Pipes';
+%     image_names{9} = 'Playroom';
+%     image_names{10} = 'Playtable';
+%     image_names{11} = 'PlaytableP';
+%     image_names{12} = 'Recycle';
+%     image_names{13} = 'Shelves';
+%     image_names{14} = 'Teddy';
+%     image_names{15} = 'Vintage';
+% Specify path to scene folder containing img0 img1 and calib
+scene_path = ['MiddEval3\trainingH\',image_names{4}];
+=======
+% Specify path to scene folder containing img0 img1 and calib
+scene_path = 'C\test\Motorcycle';
+>>>>>>> 2cdb85d31db2abf61e2fdd5b578bcf62fec829bf
 ndisp=370;
 algorithm=0;
 Window_radius=6;
@@ -15,32 +52,50 @@ HF  = 3;
 HF_r  = 4;
 calib  = 2;
 BGF  = 1;
+% 
+% Calculate disparity map and Euclidean motion
+[D,R,T] = disparity_map(scene_path,'ndisp',ndisp,'calib',calib,'algorithm',algorithm,'window_radius',Window_radius,'min_window_radius',min_window_radius,'max_window_radius',max_window_radius,'beta',beta,'gamma',gamma,'pri_MV',pri_MV,'pri_MV_r',pri_MV_r,'pos_MV',pos_MV,'pos_MV_r',pos_MV_r,'HF',HF,'HF_r',HF_r,'BGF',BGF);
 
-% Disparity map
-tic;
-[D,R,T] = disparity_map(pfad,'ndisp',ndisp,'calib',calib,'algorithm',algorithm,'window_radius',Window_radius,'min_window_radius',min_window_radius,'max_window_radius',max_window_radius,'beta',beta,'gamma',gamma,'pri_MV',pri_MV,'pri_MV_r',pri_MV_r,'pos_MV',pos_MV,'pos_MV_r',pos_MV_r,'HF',HF,'HF_r',HF_r,'BGF',BGF);
-time_taken=toc;
-
-% PSNR
-path_GT=[pfad,'\disp0GT.pfm'];
+%% Validation
+% Specify path to ground truth disparity map
+% gt_path = 'paht\to\ground\truth'
+path_GT=[scene_path,'\disp0GT.pfm'];
 if ~exist(path_GT,'file')
-    PSNR=('no GT');
+    p=('no GT');
 else
-    GT = readpfm([pfad,'/disp0GT.pfm']);
+    GT = readpfm([scene_path,'/disp0GT.pfm']);
     GT_u = uint8(GT);
-    PSNR = verify_dmap(D,GT_u,max(max(D(:),max(GT(:)))));
+    p = verify_dmap(D,GT_u,max(max(D(:),max(GT(:)))));
 end
 
-% Show result
+%% Stop timer here
+elapsed_time = toc;
+
+
+%% Print Results
+% R, T, p, elapsed_time
 disp('Rotation is ');
 disp(R);
 disp('Translation is ');
 disp(T);
 disp('PSNR is ');
-disp(PSNR);
+disp(p);
 disp('Time is ');
-disp(time_taken);
+disp(elapsed_time);
+
+
+%% Display Disparity
+<<<<<<< HEAD
+D(GT_u==0)=0;
 D=double(D);
-imshow(D/max(D(:))) ;   % /max(D(:))
+imshow([D/max(D(:)),GT/max(GT(:))]) ; 
+=======
+D_mask = D;
+D_mask(GT_u==0)=0;
+D_mask=double(D_mask);
+imshow([D_mask/max(D_mask(:)),GT/max(GT(:))]) ; 
+>>>>>>> 2cdb85d31db2abf61e2fdd5b578bcf62fec829bf
 colormap(gca,jet)
 drawnow;
+
+
