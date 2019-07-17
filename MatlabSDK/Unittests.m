@@ -1,5 +1,5 @@
 %{
-Readme?
+Readme
 --------------------------------------------------------------------------------------
 The purpose of this class (Unittests) is to check the properties of our function.
 It is composed of three parts: 
