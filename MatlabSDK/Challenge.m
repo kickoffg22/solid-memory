@@ -15,28 +15,8 @@ mail = {'matthew.ma@tum.de','ge57qom@mytum.de','ge25cer@mytum.de','jerrycj622.yu
 tic;
 
 %% Disparity Map
-<<<<<<< HEAD
-%     image_names{1} = 'Adirondack';
-%     image_names{2} = 'ArtL';
-%     image_names{3} = 'Jadeplant';
-    image_names{4} = 'Motorcycle';
-%     image_names{5} = 'MotorcycleE';
-%     image_names{6} = 'Piano';
-%     image_names{7} = 'PianoL';
-%     image_names{8} = 'Pipes';
-%     image_names{9} = 'Playroom';
-%     image_names{10} = 'Playtable';
-%     image_names{11} = 'PlaytableP';
-%     image_names{12} = 'Recycle';
-%     image_names{13} = 'Shelves';
-%     image_names{14} = 'Teddy';
-%     image_names{15} = 'Vintage';
 % Specify path to scene folder containing img0 img1 and calib
-scene_path = ['MiddEval3\trainingH\',image_names{4}];
-=======
-% Specify path to scene folder containing img0 img1 and calib
-scene_path = 'C\test\Motorcycle';
->>>>>>> 2cdb85d31db2abf61e2fdd5b578bcf62fec829bf
+scene_path = 'C:\Users\surface\Desktop\solid-memory-master\MatlabSDK\MiddEval3\trainingH\Motorcycle';
 ndisp=370;
 algorithm=0;
 Window_radius=6;
@@ -85,17 +65,9 @@ disp(elapsed_time);
 
 
 %% Display Disparity
-<<<<<<< HEAD
-D(GT_u==0)=0;
-D=double(D);
-imshow([D/max(D(:)),GT/max(GT(:))]) ; 
-=======
 D_mask = D;
 D_mask(GT_u==0)=0;
 D_mask=double(D_mask);
 imshow([D_mask/max(D_mask(:)),GT/max(GT(:))]) ; 
->>>>>>> 2cdb85d31db2abf61e2fdd5b578bcf62fec829bf
 colormap(gca,jet)
 drawnow;
-
-
