@@ -5,7 +5,7 @@ Instruction of ‘start_gui.fig’
 
 In this dialog box, you can enter the address of the folder where the images are located. 
 Importantly, please name the two images as im0 and im1 in advance, the format is png.
-In addition, if there is Groundtruth, please name it disp0GT.pfm
+In addition, if there is Groundtruth, please name it disp0.pfm and put it in the same file with im0.png and im1.png.
 You can also adjust each parameter in input panel.
 Start the program by 'Start' button.  After the result is displayed, you can clear the output result by 'Clear' button.
 Afterwards, you can klick '3D-plot' button to view the 3D plot of the figure.
