@@ -1,9 +1,0 @@
-a = magic(3);
-b=zeros(3);
-c= 5*ones(3);
-a = b;
-A = zeros(3,3,3);
-A(:,:,1) =a;
-A(:,:,3) =c;
-[Am,I] = max(A,[],3);
-[c,x] = mode(A,3)
