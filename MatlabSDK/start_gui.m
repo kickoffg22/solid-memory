@@ -22,7 +22,7 @@ function varargout = start_gui(varargin)
 
 % Edit the above text to modify the response to help untitled1
 
-% Last Modified by GUIDE v2.5 15-Jul-2019 12:39:21
+% Last Modified by GUIDE v2.5 17-Jul-2019 22:36:45
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -116,13 +116,14 @@ drawnow;
 tic;
 [D,R,T] = disparity_map(pfad,'ndisp',ndisp,'calib',calib,'algorithm',algorithm,'window_radius',Window_radius,'min_window_radius',min_window_radius,'max_window_radius',max_window_radius,'beta',beta,'gamma',gamma,'pri_MV',pri_MV,'pri_MV_r',pri_MV_r,'pos_MV',pos_MV,'pos_MV_r',pos_MV_r,'HF',HF,'HF_r',HF_r,'BGF',BGF);
 time_taken=toc;
+D_plot=set(handles.start_pushbutton,'Userdata',D);
 
 % PSNR
-path_GT=[pfad,'\disp0GT.pfm'];
+path_GT=[pfad,'\disp0.pfm'];
 if ~exist(path_GT,'file')
     PSNR=('no GT');
 else
-    GT = readpfm([pfad,'/disp0GT.pfm']);
+    GT = readpfm([pfad,'/disp0.pfm']); % '/disp0GT.pfm'
     GT_u = uint8(GT);
     PSNR = verify_dmap(D,GT_u,max(max(D(:),max(GT(:)))));
 end
@@ -978,3 +979,14 @@ set(handles.T2,'string','');
 set(handles.T3,'string','');
 set(handles.p_edit,'string','');
 set(handles.time_edit,'string','');
+
+
+% --- Executes on button press in plot_pushbutton.
+function plot_pushbutton_Callback(hObject, eventdata, handles)
+% hObject    handle to plot_pushbutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+pfad=get(handles.pfad_edit,'Userdata'); 
+im0=imread([pfad,'\im0.png']); 
+D=get(handles.start_pushbutton,'Userdata');
+plot_3D(D,im0);

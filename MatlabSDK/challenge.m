@@ -16,7 +16,8 @@ tic;
 
 %% Disparity Map
 % Specify path to scene folder containing img0 img1 and calib
-scene_path = 'C:\Users\surface\Desktop\solid-memory-master\MatlabSDK\MiddEval3\trainingH\Motorcycle';
+scene_path = 'C\test\Motorcycle';     
+im0=imread([scene_path,'\im0.png']);
 ndisp=370;
 algorithm=0;
 Window_radius=6;
@@ -39,11 +40,11 @@ BGF  = 1;
 %% Validation
 % Specify path to ground truth disparity map
 % gt_path = 'paht\to\ground\truth'
-path_GT=[scene_path,'\disp0GT.pfm'];
+path_GT=[scene_path,'\disp0.pfm'];        
 if ~exist(path_GT,'file')
     p=('no GT');
 else
-    GT = readpfm([scene_path,'/disp0GT.pfm']);
+    GT = readpfm([scene_path,'/disp0.pfm']);
     GT_u = uint8(GT);
     p = verify_dmap(D,GT_u,max(max(D(:),max(GT(:)))));
 end
@@ -68,6 +69,11 @@ disp(elapsed_time);
 D_mask = D;
 D_mask(GT_u==0)=0;
 D_mask=double(D_mask);
+figure
 imshow([D_mask/max(D_mask(:)),GT/max(GT(:))]) ; 
 colormap(gca,jet)
 drawnow;
+%% 3D-Plot
+figure
+plot_3D(D,im0);
+

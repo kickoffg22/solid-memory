@@ -54,7 +54,7 @@ function [T,R]=TR(scene_path)
           T2_hat(2,1)];
 %%
 [T, R] = rekonstruktion(T1, T2, R1, R2, Korrespondenzen, K);
-T = max(abs(T));
+T = abs(T);
 if(det(R)<0)
      R = abs(R);
 end
