@@ -1,5 +1,10 @@
 ﻿G22
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ATTENTION: The path of the image should be this form:
+
+/home/ge36gel/Desktop/solid-memory-master/backup/MatlabSDK/MiddEval3/trainingH/Motorcycle/ (linux)
+\home\ge36gel\Desktop\solid-memory-master\backup\MatlabSDK\MiddEval3\trainingH\Motorcycle\  (windows)
+In windows, please remember to add a"\" at the end of the path because when directly copying the address, "\" will be omitted.
 
 Instruction of ‘start_gui.fig’
 
@@ -9,6 +14,7 @@ In addition, if there is Groundtruth, please name it disp0.pfm and put it in the
 You can also adjust each parameter in input panel.
 Start the program by 'Start' button.  After the result is displayed, you can clear the output result by 'Clear' button.
 Afterwards, you can klick '3D-plot' button to view the 3D plot of the figure.
+
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
